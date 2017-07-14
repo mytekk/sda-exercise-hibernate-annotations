@@ -1,6 +1,7 @@
 package pl.sda.exercise.hibernate.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 //klasa- encja z adnotacjami
 
@@ -25,6 +26,13 @@ public class Book {
     @JoinColumn(name="author_id")           //fetch=FetchType.EAGER - wylacza lazy loading
     private Author bookAuthor;
 
+    @ManyToMany(fetch = FetchType.EAGER)    //okresla, ze pole categories bedzie wskazywalo na relacje wiele-do-wiele pomiedzy ksiazka a kategoriami
+    @JoinTable(joinColumns = @JoinColumn(name = "book_id"), //pierwsza strona relacji
+    inverseJoinColumns = @JoinColumn(name = "category_id")     ,      //druga strona relacji
+            name="book_category"  //nazwa tabelki przechowujacej relacje wiele-do-wielu
+    )
+    private Set<Category> categories;
+
 
     public Integer getId() {
         return id;
@@ -45,6 +53,14 @@ public class Book {
 
     public void setBookAuthor(Author bookAuthor) {
         this.bookAuthor = bookAuthor;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

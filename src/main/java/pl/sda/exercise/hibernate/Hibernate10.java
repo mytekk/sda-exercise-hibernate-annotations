@@ -13,9 +13,9 @@ public class Hibernate10 {
 		BookService bookService = new BookService();
 		System.out.println("Books:");
 		bookService.getBooks().forEach(book -> {
-//			System.out.println(book + "; " + book.getCategories()
-//					.stream().map(c -> c.toString())
-//					.collect(Collectors.joining("; ")));
+			System.out.println(book + "; " + book.getCategories()
+					.stream().map(c -> c.toString())
+					.collect(Collectors.joining("; ")));
 		});
 	}
 
