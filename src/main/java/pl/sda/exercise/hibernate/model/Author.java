@@ -1,14 +1,13 @@
 package pl.sda.exercise.hibernate.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="author")
+@NamedQueries(value = {
+        @NamedQuery(name = "getAuthorsQuery", query = "from Author")
+})
 public class Author {
 
     @Id
@@ -21,6 +20,10 @@ public class Author {
 
     @Column(name="last_name")
     private String lastName;
+
+    @OneToMany(fetch = FetchType.EAGER) //okresla, ze pole books bedzie wskazywalo na relacje jeden-do-wiele (do wielu ksiazek tego autora)
+    @JoinColumn(name="author_id")    //fetch=FetchType.EAGER - wylacza lazy loading
+    private Set<Book> books;     //hibernate sam sobie wykryje, ze kolumna author_id siedzi w tabeli book i na tej podstawie wyciagnie dane
 
 
     public Integer getId() {
@@ -41,6 +44,15 @@ public class Author {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";

@@ -7,13 +7,25 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-// import pl.sda.exercise.hibernate.model.Author;
+import org.hibernate.query.Query;
+import pl.sda.exercise.hibernate.model.Author;
 
 public class AuthorService {
 
-//	public List<Author> getAuthors() {
-//		TODO
-//		return new LinkedList<>();
-//	}
+    private SessionFactory sessionFactory;
+
+    public AuthorService() {
+        this.sessionFactory = new Configuration().configure().buildSessionFactory();
+    }
+
+    public List<Author> getAuthors() {
+
+        Session session = sessionFactory.openSession();
+        Query<Author> query = session.createNamedQuery("getAuthorsQuery", Author.class);
+        List<Author> list = query.list();
+        session.close();
+
+        return list;
+    }
 
 }
