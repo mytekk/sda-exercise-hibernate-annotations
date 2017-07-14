@@ -38,9 +38,15 @@ public class BookService {
 		return result;
 	}
 
-	public List<Book> getBookById(int id) {
-		//TODO
-		return null;
+	public Book getBookById(int id) {
+
+		Session session = sessionFactory.openSession();
+		Query<Book> query = session.createNamedQuery("getBookById", Book.class);
+		query.setParameter("id", id);
+		Book book = query.uniqueResult();
+		session.close();
+
+		return book;
 	}
 
 	public List<Book> getBooksByTitle(String title) {
