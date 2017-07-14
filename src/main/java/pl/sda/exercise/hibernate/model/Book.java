@@ -1,13 +1,6 @@
 package pl.sda.exercise.hibernate.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 //klasa- encja z adnotacjami
 
@@ -28,6 +21,10 @@ public class Book {
     @Column(name="title") //nazwa kolumny z bazy
     private String title;
 
+    @ManyToOne(fetch=FetchType.EAGER) //okresla, ze pole bookAuthor bedzie wskazywalo na relacje wiele-do-jeden (do autora ksiazki)
+    @JoinColumn(name="author_id")           //fetch=FetchType.EAGER - wylacza lazy loading
+    private Author bookAuthor;
+
 
     public Integer getId() {
         return id;
@@ -40,6 +37,14 @@ public class Book {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Author getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public void setBookAuthor(Author bookAuthor) {
+        this.bookAuthor = bookAuthor;
     }
 
     @Override
