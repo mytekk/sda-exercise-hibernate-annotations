@@ -13,7 +13,7 @@
 	<property name="hibernate.show_sql">true</property>
 	<property name="hibernate.format_sql">true</property>
 
-	<!-- tutaj mowimy hibernetowi, ze klasy Book i Author sa encjami z adnotacjami -->
+	<!-- tutaj mowimy hibernetowi, ze klasa Book jest encja z adnotacjami -->
     <mapping class="pl.sda.exercise.hibernate.model.Book"></mapping>
 
 </session-factory>

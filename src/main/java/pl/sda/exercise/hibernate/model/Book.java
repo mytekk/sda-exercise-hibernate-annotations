@@ -11,21 +11,21 @@ import javax.persistence.Table;
 
 //klasa- encja z adnotacjami
 
-@Entity
-@Table(name="book")
-@NamedQueries(value={
+@Entity //ta adnotacja mowi, ze ta klasa bedzie encja hibernetowa
+@Table(name="book") //podajemy nazwe tabelki w bazie
+@NamedQueries(value={   //nazwa zapytania - do poznejszego wykorzystania np. w BookService
         @NamedQuery(name="ourQueryForAllBooks", query="from Book"),
         @NamedQuery(name="countBooksQuery", query = "select count(*) from Book"),
         @NamedQuery(name="getBookById", query = "from Book b where b.id = :id"),
 })
 public class Book {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id //mowi, ze to pole bedzie odpowiadalo za przechowywanie auto incrementa z bazy danych
+    @Column(name="id") //nazwa kolumnyz bazy zawierajaca glowne id tabelki
+    @GeneratedValue(strategy=GenerationType.IDENTITY) //sposob generowania kolejnej wartosci id; identity - odpowiednik native z klasycznego hiberneta
     private Integer id;
 
-    @Column(name="title")
+    @Column(name="title") //nazwa kolumny z bazy
     private String title;
 
 
