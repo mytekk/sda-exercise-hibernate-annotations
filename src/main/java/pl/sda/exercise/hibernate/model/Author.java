@@ -21,11 +21,13 @@ public class Author {
     @Column(name="last_name")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.EAGER) //okresla, ze pole books bedzie wskazywalo na relacje jeden-do-wiele (do wielu ksiazek tego autora)
-    @JoinColumn(name="author_id")    //fetch=FetchType.EAGER - wylacza lazy loading
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookAuthor") //okresla, ze pole books bedzie wskazywalo na relacje jeden-do-wiele (do wielu ksiazek tego autora)
+    //@JoinColumn(name="author_id")    //fetch=FetchType.EAGER - wylacza lazy loading
     private Set<Book> books;     //hibernate sam sobie wykryje, ze kolumna author_id siedzi w tabeli book i na tej podstawie wyciagnie dane
-
-
+                            //mappedBy = "bookAuthor" -> odwraca relacje zdefiniowana w klasie Book i korzysta z niej
+                            //zeby "wyprodukowac" tutejsza relacje
+                            //string w mappedBy przechowuje nazwe pola w klasie Book, ktore zawiera te relacje do odwrocenia
+                            //hibernate sam sie skapnie, ze pole bookAuthor powinno byc w klasie Book
     public Integer getId() {
         return id;
     }
