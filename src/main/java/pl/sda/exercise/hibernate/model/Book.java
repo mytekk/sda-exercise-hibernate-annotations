@@ -11,6 +11,7 @@ import java.util.Set;
         @NamedQuery(name="ourQueryForAllBooks", query="from Book"),
         @NamedQuery(name="countBooksQuery", query = "select count(*) from Book"),
         @NamedQuery(name="getBookById", query = "from Book b where b.id = :id"),
+        @NamedQuery(name="getBooksByTitle", query = "from Book b where b.title like :title"),
 })
 public class Book {
 

@@ -50,8 +50,13 @@ public class BookService {
 	}
 
 	public List<Book> getBooksByTitle(String title) {
-		//TODO
-		return new LinkedList<>();
+
+		Session session = sessionFactory.openSession();
+		Query<Book> query = session.createNamedQuery("getBooksByTitle", Book.class);
+		query.setParameter("title", '%' + title + '%');
+		List<Book> list = query.list();
+
+		return list;
 	}
 
 	public void createBook(Book book) {
