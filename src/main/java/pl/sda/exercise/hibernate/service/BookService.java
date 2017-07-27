@@ -84,7 +84,14 @@ public class BookService {
 	}
 
 	public void deleteBook(Book book) {
-		//TODO
+
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+
+		session.delete(book);
+
+		transaction.commit();
+		session.close();
 	}
 
 }
