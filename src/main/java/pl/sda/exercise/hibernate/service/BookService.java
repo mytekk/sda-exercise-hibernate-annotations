@@ -73,7 +73,14 @@ public class BookService {
 	}
 
 	public void updateBook(Book book) {
-		//TODO
+
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+
+		session.update(book);
+
+		transaction.commit();
+		session.close();
 	}
 
 	public void deleteBook(Book book) {
