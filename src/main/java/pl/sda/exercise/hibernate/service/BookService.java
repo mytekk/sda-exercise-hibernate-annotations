@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import pl.sda.exercise.hibernate.model.Book;
@@ -55,12 +56,20 @@ public class BookService {
 		Query<Book> query = session.createNamedQuery("getBooksByTitle", Book.class);
 		query.setParameter("title", '%' + title + '%');
 		List<Book> list = query.list();
+		session.close();
 
 		return list;
 	}
 
 	public void createBook(Book book) {
-		//TODO
+
+		Session session = sessionFactory.openSession();
+
+		Transaction transaction = session.beginTransaction();
+		session.save(book);
+		transaction.commit();
+
+		session.close();
 	}
 
 	public void updateBook(Book book) {
