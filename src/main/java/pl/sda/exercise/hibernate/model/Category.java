@@ -11,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "category")
+@NamedQueries(value = {
+        @NamedQuery(name="getAllCategories", query = "from Category")
+})
 public class Category {
 
     @Id
@@ -33,6 +36,22 @@ public class Category {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Book> getSetOfBooks() {
+        return setOfBooks;
+    }
+
+    public void setSetOfBooks(Set<Book> setOfBooks) {
+        this.setOfBooks = setOfBooks;
     }
 
     @Override
